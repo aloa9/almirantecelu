@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título e Nome da Escola Originais -->
+    <title>Expedição Histórica - Palácio Anchieta | Escola Estadual de Ensino Médio 'O Grande Saber'</title>
+    <!-- Carrega a biblioteca Tailwind CSS para um design moderno e responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter para todo o documento, garantindo excelente legibilidade */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 950 - Fundo noturno */
+            color: #e2e8f0; /* Cor padrão do texto (quase branco) */
+            scroll-behavior: smooth;
+        }
+
+        /* Estilo para a barra de rolagem do carrossel (para ocultar, mantendo a funcionalidade de arrastar) */
+        .carousel-track {
+            overflow-x: scroll; /* Permite o scroll nativo (swipe) no mobile */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            scroll-snap-type: x mandatory; /* Garante que o item pare perfeitamente na tela */
+        }
+        .carousel-track::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+
+        /* * Ajuste CRUCIAL para Responsividade:
+         * Mobile (padrão): item ocupa 100% da largura.
+         * Desktop (md:): item ocupa ~1/3, considerando o gap de 1rem (gap-4).
+         */
+        .carousel-item {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            width: 100%; /* Mobile first: 100% da largura do contêiner */
+            aspect-ratio: 2 / 3; /* Proporção vertical para fotos */
+        }
+
+        @media (min-width: 768px) {
+            .carousel-item {
+                /* (100% / 3 itens) - (2 * gap / 3) => ~32% */
+                width: calc((100% - 2 * 1rem) / 3); 
+            }
+            .carousel-track {
+                 scroll-snap-type: none; /* Desativa scroll-snap no desktop para melhor visualização contínua dos 3 itens */
+            }
+        }
+        
+        /* Estilo para o item da lista de duplas (cursor e hover) - ADAPTADO PARA NOTURNO */
+        .pair-item {
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 4px solid transparent;
+            color: #94a3b8; /* Secondary color for text */
+        }
+
+        .pair-item:hover {
+            background-color: #334155; /* Slate 700 para hover */
+            color: #f8fafc; /* Quase branco no hover */
+        }
+
+        .pair-item.active {
+            background-color: #065f46; /* Dark Emerald/Green para ativo */
+            border-left-color: #34d399; /* Primary Green */
+            font-weight: 600;
+            color: #f8fafc; /* Texto branco no ativo */
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Cores Noturnas e Modernas
+                        'primary': '#34d399', // Emerald 400 (Verde vibrante para destaque)
+                        'secondary': '#94a3b8', // Slate 400 (Cinza claro para texto secundário)
+                        'background-soft': '#0f172a', // Slate 950 (Fundo principal)
+                        'card-dark': '#1e293b', // Slate 800 (Fundo dos cards)
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen">
+
+    <!-- 1. CABEÇALHO (Header) - Fixo e RESPONSIVO -->
+    <header class="bg-card-dark shadow-xl border-b border-primary/50 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto p-4 flex flex-col md:flex-row justify-between items-center">
+            <!-- Título do Passeio -->
+            <div class="text-center md:text-left mb-2 md:mb-0">
+                <h1 class="text-xl sm:text-2xl font-bold text-primary">Expedição Histórica</h1>
+                <p class="text-sm text-secondary">Almirante Barroso 'O Grande Saber'</p>
+            </div>
+            
+            <!-- Opções de Navegação (Centralizadas em Mobile) -->
+            <nav class="flex space-x-4 mt-2 md:mt-0 text-sm sm:text-base">
+                <a href="#capa" class="text-secondary hover:text-primary transition duration-300 font-medium">Capa</a>
+                <a href="#momentos-capturas" class="text-secondary hover:text-primary transition duration-300 font-medium">Fotos</a>
+                <a href="#alunos-disseram" class="text-secondary hover:text-primary transition duration-300 font-medium">Depoimentos</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 2. CAPA (Hero Section) -->
+    <section id="capa" class="relative min-h-[60vh] h-auto md:h-screen flex items-center justify-center text-white text-center py-16 md:py-0"
+        style="background: url('imagens/10.jpg') no-repeat center center/cover;">
+        <!-- Overlay para melhorar a leitura do texto, usando preto para o contraste -->
+        <div class="absolute inset-0 bg-black opacity-70 z-10"></div>
+        
+        <div class="relative z-20 p-6 md:p-12 max-w-4xl bg-black/50 backdrop-blur-sm rounded-2xl shadow-2xl border border-primary/20 mx-4">
+            <p class="text-lg sm:text-xl font-semibold mb-2 text-white/90">
+                Apresentamos:
+            </p>
+            <h2 class="text-4xl sm:text-6xl font-extrabold leading-tight tracking-tight mb-4 text-primary">
+                A História ao Vivo!
+            </h2>
+            <p class="text-base sm:text-lg font-light mb-6 text-secondary">
+                Palácio Anchieta: Nossa aula em campo, aprendendo sobre a memória e o patrimônio do Espírito Santo.
+            </p>
+            <a href="#momentos-capturas" class="inline-block bg-primary text-slate-900 font-bold py-3 px-6 sm:px-8 rounded-full shadow-lg hover:bg-primary/90 transition duration-300 transform hover:scale-105 text-sm sm:text-base">
+                Ver Fotos do Passeio
+            </a>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+
+      <!-- 3. GALERIA DE FOTOS (Carrossel OTIMIZADO para Mobile) -->
+      <section id="momentos-capturas" class="my-16 pt-16 -mt-16">
+          <h3 class="text-3xl font-bold text-center text-secondary mb-10 border-b-2 border-primary pb-2">
+              Momentos Capturados
+          </h3>
+          
+          <div class="relative max-w-6xl mx-auto">
+              <!-- CONTÊINER DO CARROSSEL: Usa overflow-x-scroll no track para permitir o swipe nativo -->
+              <div class="overflow-hidden rounded-xl shadow-inner bg-card-dark p-2 border border-primary/10">
+                  
+                  <!-- Track do Carrossel: Adicionado 'p-2' para que o scroll-snap não corte a sombra/borda do item -->
+                  <div id="carousel-track" class="carousel-track flex gap-4 p-2 pb-4" style="transition: transform 0.5s ease-in-out;">
+                      
+                      <!-- Itens do Carrossel (Vertical 2:3) -->
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/1.jpeg" alt="Foto do Palácio" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+1'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/2.jpeg" alt="Alunos Aprendendo" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+2'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/3.jpeg" alt="Estátua Histórica" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+3'">
+                      </div>
+                      
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/4.jpeg" alt="Detalhe Arquitetônico" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+4'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/5.jpeg" alt="Vista Interior" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+5'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/6.jpeg" alt="Professor Explicando" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+6'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/7.jpeg" alt="Grupo na Escadaria" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+7'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/8.jpeg" alt="Artefatos Antigos" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+8'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/9.jpeg" alt="Momento de Reflexão" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+9'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/10.jpg" alt="Momento de Reflexão" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+10'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/11.jpeg" alt="Momento de Reflexão" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+11'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/12.jpeg" alt="Momento de Reflexão" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+12'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/13.jpeg" alt="Momento de Reflexão" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+13'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/14.jpeg" alt="Momento de Reflexão" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+14'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/15.jpeg" alt="Momento de Reflexão" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+15'">
+                      </div>
+                      <div class="carousel-item bg-gray-700 rounded-lg shadow-xl">
+                          <img src="imagens/16.jpeg" alt="Momento de Reflexão" class="w-full h-full object-cover rounded-lg" onerror="this.onerror=null;this.src='https://placehold.co/400x600/334155/e2e8f0?text=Foto+16'">
+                      </div>
+                  </div>
+              </div>
+              
+              <!-- Botões de Navegação (Visíveis APENAS no Desktop) -->
+              <button id="prev-btn" class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-card-dark/80 hover:bg-card-dark p-3 rounded-full shadow-lg transition duration-300 z-10 hidden md:block border border-primary/20" aria-label="Anterior">
+                  <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+              </button>
+              <button id="next-btn" class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-card-dark/80 hover:bg-card-dark p-3 rounded-full shadow-lg transition duration-300 z-10 hidden md:block border border-primary/20" aria-label="Próximo">
+                  <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </button>
+
+              <!-- Indicadores de Slide (Dots) -->
+              <div id="indicators" class="flex justify-center mt-6 space-x-2">
+                  <!-- Dots serão adicionados via JavaScript -->
+              </div>
+          </div>
+      </section>
+
+      <!-- 4. SEÇÃO "O QUE OS ALUNOS DISSERAM" (Ajustada para Mobile) -->
+      <section id="alunos-disseram" class="my-16 pt-16 -mt-16">
+          <h3 class="text-3xl font-bold text-center text-secondary mb-10 border-b-2 border-primary pb-2">
+              O que os Alunos Disseram
+          </h3>
+          
+          <!-- CONTÊINER INTERATIVO: A grade se torna 1 coluna em mobile e 3 em desktop -->
+          <div class="max-w-6xl mx-auto p-4 sm:p-6 bg-card-dark rounded-2xl shadow-xl border-t-4 border-primary/50">
+              
+              <h4 class="text-xl font-semibold text-secondary mb-6 text-center">Encontre o Depoimento da sua Dupla:</h4>
+
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  
+                  <!-- Coluna 1: Lista de Duplas e Pesquisa -->
+                  <div class="lg:col-span-1 bg-background-soft p-4 rounded-xl shadow-inner h-96 flex flex-col border border-primary/10">
+                      <input type="text" id="search-input" placeholder="Pesquisar por nome da dupla..." class="w-full p-3 mb-4 bg-slate-800 border border-slate-700 text-white placeholder-secondary rounded-lg focus:ring-primary focus:border-primary transition duration-200">
+                      
+                      <!-- Lista com scroll -->
+                      <div class="flex-grow overflow-y-auto">
+                          <ul id="pair-list" class="space-y-2">
+                              <!-- Lista de duplas será preenchida via JS -->
+                          </ul>
+                          <p id="no-results" class="text-secondary text-center mt-4 hidden">Nenhuma dupla encontrada.</p>
+                      </div>
+                  </div>
+                  
+                  <!-- Coluna 2: Área de Depoimento -->
+                  <div class="lg:col-span-2 bg-slate-900 p-6 rounded-xl shadow-lg border border-primary/10 flex flex-col justify-between">
+                      <div id="testimonial-display" class="min-h-[200px]">
+                          <!-- Depoimento dinâmico será injetado aqui -->
+                          <p class="text-xl italic text-secondary text-center pt-8">
+                              Selecione uma dupla na lista ao lado ou pesquise para ler o depoimento completo sobre o passeio.
+                          </p>
+                      </div>
+                      <p id="pair-name-display" class="mt-6 text-right font-semibold text-primary/80 hidden text-sm sm:text-base">
+                          <!-- Nome da Dupla será inserido aqui -->
+                      </p>
+                  </div>
+
+              </div>
+          </div>
+      </section>
+      
+    </main>
+
+    <!-- 5. RODAPÉ (Footer) - Simples e informativo com agradecimento -->
+    <footer class="bg-card-dark text-white/90 mt-12 py-8 border-t border-primary/20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm mb-4 opacity-80">
+                Agradecimento especial à direção e a professora Aline pelo apoio na Expedição Histórica.
+            </p>
+            <p class="text-xs opacity-75 text-secondary">
+                © 2025 Almirante Barroso 'O Grande Saber'. Todos os direitos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT para Carrossel e Depoimentos (LÓGICA DO CARROSSEL SIMPLIFICADA) -->
+    <script>
+        // ==========================================================
+        // LÓGICA DO CARROSSEL DE FOTOS (Adaptada para CSS-Snap/Observer)
+        // ==========================================================
+        const track = document.getElementById('carousel-track');
+        const items = Array.from(track.children);
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const indicatorsContainer = document.getElementById('indicators');
+
+        const itemsPerView = 1; // Para fins de navegação via JS (mobile é 1, desktop usa scroll manual)
+
+        // 1. Função para rolar o carrossel (usada pelos botões no Desktop)
+        const scrollToItem = (index) => {
+            if (items[index]) {
+                const itemWidth = items[index].offsetWidth;
+                const gap = 16; // gap-4 = 16px
+                // Para mobile, rola para o item exato. Para desktop, rola em blocos de 3.
+                let scrollAmount = index * (itemWidth + gap);
+
+                // No desktop (>= 768px), o itemWidth é menor (cerca de 1/3), 
+                // então rolamos pelo tamanho real do bloco (1 item + gap).
+                if (window.innerWidth >= 768) {
+                    // Calculamos a distância necessária para o item em questão.
+                    // O item está 'flutuando' em um bloco de 3.
+                    // Vamos rolar pelo 'scrollLeft' do track
+                    scrollAmount = items[index].offsetLeft - track.offsetLeft;
+                }
+
+                track.scrollTo({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        };
+
+        // 2. Cria os indicadores (Dots)
+        const createIndicators = () => {
+            indicatorsContainer.innerHTML = '';
+            // Apenas cria 1 dot para cada imagem (ideal para mobile)
+            items.forEach((item, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('w-3', 'h-3', 'rounded-full', 'transition-all', 'duration-300', 'focus:outline-none', 'bg-gray-700', 'hover:bg-primary/50');
+                dot.setAttribute('aria-label', `Ir para a foto ${index + 1}`);
+
+                dot.addEventListener('click', () => {
+                    scrollToItem(index);
+                });
+                indicatorsContainer.appendChild(dot);
+            });
+        };
+
+        // 3. Observador para detectar qual slide está visível (atualiza os dots)
+        const observerOptions = {
+            root: track,
+            rootMargin: "0px",
+            // Determina que 70% do item deve estar visível para ser considerado 'ativo'
+            threshold: 0.7 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const index = items.indexOf(entry.target);
+                const dot = indicatorsContainer.children[index];
+                
+                if (!dot) return;
+
+                // Atualiza a classe do indicador ativo
+                if (entry.isIntersecting) {
+                    dot.classList.add('bg-primary', 'w-6');
+                    dot.classList.remove('bg-gray-700');
+                } else {
+                    dot.classList.remove('bg-primary', 'w-6');
+                    dot.classList.add('bg-gray-700');
+                }
+            });
+            // Após a observação, atualiza a visibilidade dos botões
+            updateButtonVisibility();
+        }, observerOptions);
+
+        // Aplica o observador a todos os itens
+        items.forEach(item => observer.observe(item));
+
+        // 4. Lógica de navegação para os botões (Desktop)
+        const updateButtonVisibility = () => {
+             // Esta lógica é complexa no desktop pois 3 itens estão visíveis. 
+             // Simplificamos apenas para desabilitar o botão de acordo com a extremidade
+             const isAtStart = track.scrollLeft === 0;
+             const isAtEnd = track.scrollLeft >= (track.scrollWidth - track.clientWidth) - 5; // -5 para margem de erro
+             
+             prevBtn.disabled = isAtStart;
+             nextBtn.disabled = isAtEnd;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            // Rola um bloco de 100% da largura do contêiner para trás (funciona bem para 1 item mobile ou 3 itens desktop)
+            track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            // Rola um bloco de 100% da largura do contêiner para frente
+            track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+        });
+
+        // Atualiza a visibilidade dos botões ao rolar (para desktop)
+        track.addEventListener('scroll', updateButtonVisibility);
+
+        // ==========================================================
+        // LÓGICA DEPOIMENTOS DE ALUNOS (Duplas) - Mantida
+        // ==========================================================
+
+        // DADOS: Edite este array para adicionar as duplas e seus depoimentos
+        const testimonialsData = [
+            { id: 1, pairName: "Nathalia e Geovana", text: "​No dia do passeio, fomos até Vila Velha e vivemos uma experiência muito especial. Saímos animadas, aproveitando o clima agradável e o belo visual da cidade. A simples caminhada por Vila Velha já foi divertida, principalmente porque estávamos juntas, conversando e rindo o tempo todo, o que tornou a jornada leve e cheia de boas energias desde o começo. Durante o percurso, observamos vários lugares interessantes e tiramos muitas fotos para guardar de lembrança. Em diversos momentos, paramos apenas para apreciar a paisagem, o que tornou o passeio ainda mais agradável e contemplativo. Aproveitamos para conhecer melhor os pontos turísticos do local, experimentar a culinária da região e observar o movimento das pessoas ao nosso redor, absorvendo toda a atmosfera da cidade. ​O que mais marcou a experiência foi a sensação de felicidade e companheirismo. Fazer o passeio em dupla deixou tudo mais divertido, pois pudemos apoiar uma à outra e compartilhar cada descoberta. No final do dia, voltamos exaustas, mas muito felizes por termos aproveitado o tempo juntas e criado momentos preciosos que, com certeza, vão ficar na nossa memória." },
+            { id: 2, pairName: "Marcelly Pereira e Maria Vitória", text: "Nosso passeio ao Palácio Anchieta foi incrível, e nós gostamos muito. Embora não tenha sido a nossa primeira visita, é sempre bom voltar e aprender mais sobre aquele lugar! Vimos e conhecemos partes do Palácio que não sabíamos que existiam. O Palácio é realmente um espaço importante para o estado. ​Uma das partes mais interessantes foi a área central. A guia nos explicou que ali ficava um antigo poço, e também havia uma estrutura protegida, semelhante a um forte, que impedia a entrada do mar, o que nos fez refletir sobre a altura do local. Outra área que achamos muito interessante foi a Sala dos Governadores, onde aprendemos mais sobre a história e a administração do estado. A volta para casa foi rápida, mas durante o trajeto, observamos atentamente a cidade: os prédios, as casas, os monumentos e até alguns animais. Foi um passeio muito legal! Acreditamos que o Palácio Anchieta é uma maneira diferente e inteligente de ensinar aos alunos a história local. Todos deveriam ter a oportunidade de visitar o Palácio Anchieta pelo menos uma vez." },
+            { id: 3, pairName: "Bernardo e Lucas", text: "Saímos de casa para ir à escola e nos preparar para o passeio. Às 8h17, partimos em direção à Prainha, em Vila Velha. A viagem foi rápida e tranquila, e chegamos ao nosso destino às 9h16. O professor Eduardo explicou sobre a chegada de Vasco Coutinho, fundador da região, e depois nos levou ao Museu da Memória. Lá, fomos recebidos por um especialista local, que nos contou com riqueza de detalhes a história da chegada de Vasco Coutinho, tornando a experiência muito rica e esclarecedora. Em seguida, seguimos para o Museu Homero Massena, onde chegamos às 9h33. Outro especialista local nos acompanhou e mostrou a casa de Homero Massena, além de explicar a importância do artista para a cultura da região. Depois, tivemos um tempo para observar as obras de arte expostas no museu. Após esse momento cultural, fomos liberados para o almoço. Inicialmente, planejávamos visitar o Farol de Santa Luzia, mas como o ônibus era muito grande para subir até lá, seguimos para o Convento da Penha. No Convento da Penha, participamos de uma missa e pudemos apreciar a vista panorâmica das cidades de Vitória e Vila Velha. Por volta das 11h40, descemos o convento para retornar ao ônibus e começar a volta para casa. Saímos felizes e emocionados com toda a experiência, que nos trouxe sentimentos de tranquilidade e alegria. As histórias contadas pelos professores foram incríveis e tornaram o passeio ainda mais especial para todos nós." },
+            { id: 4, pairName: "Leona", text: "Chegamos ao Palácio Anchieta por volta das 10h20. Assim que chegamos, observamos que o palácio estava em reforma. Perto dali havia uma estátua de um soldado da Segunda Guerra Mundial, e o professor de História, Eduardo, explicou toda a história por trás dela. Ao lado da estátua havia um clarão onde, antigamente, ficavam sepultados padres jesuítas, o que tornou a visita ainda mais interessante. Durante a visita ao interior do Palácio Anchieta, assistimos a um vídeo contando toda a história do local e como foi sua construção. Vimos quadros e diversas obras antigas, além do túmulo do Padre Anchieta. Também conhecemos a área presidencial, por onde passam pessoas importantes do governo. Foi muito interessante poder ver de perto a arquitetura antiga, as obras de arte e os espaços preservados.Essa aula em campo foi diferente e muito proveitosa. Além de sair da rotina da sala de aula, pudemos aprender de forma prática sobre a história e a importância do Palácio Anchieta. A visita ajudou a valorizar o nosso patrimônio histórico e cultural, mostrando como o passado continua vivo através dos lugares que mantêm a memória do nosso estado.." },
+            { id: 5, pairName: "Bárbara e Rihanna", text: "No dia 6 de agosto de 2025, aconteceu nossa saída pedagógica para o Palácio anchieta. Viemos para a escola bem cedo para esperar o ônibus e, infelizmente, nos atrasamos um pouco. Mesmo assim, por volta das 8h da manhã, conseguimos embarcar e seguir viagem. Ao chegarmos ao local, tivemos algumas explicações com os professores e funcionários sobre a história do lugar. Foi um momento de muito aprendizado para nós, pois conseguimos compreender de uma forma diferente tudo o que havíamos estudado em sala. No final, retornamos para a escola. Infelizmente, nos atrasamos novamente, mas, apesar disso, tudo correu bem e o passeio foi muito proveitoso e divertido.." },
+            { id: 6, pairName: "Evelyn e Raquel", text: "Inicialmente, a chegada ao Palácio Anchieta sofreu um leve atraso, com o grupo chegando por volta das 10:00 devido a imprevistos relacionados ao transporte de ônibus. Na área externa do Palácio, que se encontrava em reforma, o grupo foi direcionado à estátua de um soldado da Guerra Mundial. O professor de história, Eduardo, aproveitou o momento para contextualizar a história por trás da homenagem. Próximo à estátua, havia um coreto onde, antigamente, poetas recitavam seus poemas em praça pública, adicionando uma camada cultural à visita antes mesmo de adentrar o edifício. O roteiro seguiu com a entrada no Palácio, onde o grupo foi recebido por uma guia. Ela apresentou uma detalhada explicação sobre a história da edificação, complementada pela exibição de um vídeo informativo. Durante a visita interna, os participantes puderam observar de perto diversos elementos históricos e artísticos. A exposição incluía pinturas, fotos de antigos vereadores e prefeitos do Espírito Santo, além de objetos antigos que foram preservados no local, ilustrando o papel do Palácio ao longo do tempo como sede do poder executivo capixaba. Um dos pontos de interesse final foi o túmulo de um padre que estava sepultado dentro do complexo, um testemunho das camadas de história e função do local. A experiência de imersão histórica e cultural no Palácio Anchieta foi concluída, e o grupo encerrou a visita retornando para casa ao meio-dia, por volta das 12:00." },
+            { id: 7, pairName: "João e Yasmin", text: "Nossa visita ao Palácio Amarelo foi muito divertida e cheia de aprendizado. A aula fora da escola foi diferente e dinâmica, permitindo que conhecêssemos mais sobre a história e a importância desse local para a cidade. Tivemos a oportunidade de observar de perto elementos históricos e culturais que costumamos ver apenas nos livros. Durante o percurso, fizemos uma viagem agradável, mesmo com o trajeto um pouco longo. Quando chegamos, fomos recebidos com atenção e aprendemos bastante sobre o Palácio Amarelo, sua construção, sua função ao longo do tempo e as pessoas que marcaram aquele período histórico. O guia explicou tudo de forma clara, tornando a experiência mais interessante e educativa. Em resumo, a aula de campo foi uma experiência única e muito proveitosa. Além de reforçar o conteúdo aprendido em sala, permitiu que valorizássemos mais o patrimônio histórico da nossa cidade. Essa vivência foi importante para o nosso conhecimento e para entendermos melhor como o passado influia o presente e o futuro." },
+            { id: 8, pairName: "Mickaely", text: "O Contratempo no Início:O dia da viagem começou com um atraso significativo devido a um contratempo com o transporte. O ônibus demorou a chegar, fazendo com que esperássemos por um longo período. Além disso, o motorista informou que faria a troca do veículo no meio do trajeto, o que nos causou ainda mais demora. A previsão de saída era às 8h00, mas acabamos partindo consideravelmente mais tarde do que o planejado. Felizmente, os professores Aline e Eduardo estavam conosco para levar as turmas, garantindo a organização do grupo. A Chegada e a Exploração Cultural: Ao finalmente chegarmos ao destino, fomos rapidamente para o ponto de encontro, onde embarcamos no ônibus que nos aguardava. Subimos e o professor Eduardo imediatamente começou uma palestra envolvente sobre os pontos por onde passaríamos, mencionando fatos e curiosidades interessantes, já que éramos alunos do primeiro ano. O ponto alto da viagem foi a visita ao Palácio Anchieta. Lá, entramos e exploramos o prédio, que nos surpreendeu com sua beleza e história, observando os objetos antigos, as cadeiras e os antepassados que por ali passaram. Vimos, inclusive, os quadros do pintor Homero Massena, entre outras obras de arte. O Encerramento do Passeio: O tempo passou muito rápido e, por volta das 12h00, o passeio chegou ao fim. Aproveitamos muito a experiência; foi um dia divertido, no qual brincamos, nos distraímos e, principalmente, aprendemos sobre a cultura e a história local. Foi um passeio excelente! Logo em seguida, o ônibus chegou para nos buscar, e tivemos que ir embora, levando as boas lembranças desse dia especial." },
+            { id: 9, pairName: "Rhawana e Anna Julia", text: "A saída pedagógica foi um projeto feito pelos professores Aline, de Português, e Eduardo, de História. Aconteceu no dia 11 de setembro de 2025, na Prainha, em Vila Velha. Saímos da escola às 8h17 e chegamos lá por volta das 9h09. Assim que chegamos, conhecemos o local até onde a água batia, enquanto o professor Eduardo contava um pouco da história do lugar. Depois, fomos ao Museu Histórico, onde vimos e ouvimos mais sobre a história de Vila Velha — que, por sinal, é bem interessante e legal de conhecer! Em seguida, visitamos o Museu Homero Massena, que é também a casa onde ele morava. Nos sentimos realizadas com essa aula de campo, tanto pela experiência quanto pelas histórias que aprendemos. A gente acredita que é superimportante conhecer a história dos lugares do nosso município. Foi uma experiência incrível e que vai ficar guardada na memória!" },
+            { id: 10, pairName: "Tarick Vinícius", text: "No dia 11 de setembro fizemos uma visita em Vila Velha. As professoras levaram a turma para uma aula de campo, com o objetivo de aprendermos mais sobre o passado. Foi uma experiência muito boa, e deu para aproveitar bastante. Tudo começou quando visitamos a Casa da Memória. O lugar é excelente, com muitas coisas antigas e bem organizadas. Depois, seguimos para o convento e tivemos uma vista muito bonita lá de cima. Foi uma parte maravilhosa do passeio e rendeu várias fotos. Também fomos ao Museu do Homem Moreno, que é um ótimo pintor. Ele retrata qualquer trabalhador como se estivesse em sua própria casa, o que achei muito interessante. Depois disso, voltamos para a escola, pois o horário já estava terminando. Foi um passeio maravilhoso em Vila Velha, e eu adorei cada momento!" },
+            { id: 11, pairName: "Marceli Pitanga", text: "No primeiro passeio, nós fomos ao centro de Vitória. Visitamos o Palácio Anchieta, onde conhecemos sua história e vimos as obras que existem lá. Foi uma experiência muito interessante, pois aprendemos mais sobre a história e a cultura do Espírito Santo. No dia do passeio, esperamos cerca de três horas pelo ônibus. Nesse tempo, aproveitamos para lanchar e conversar com os colegas. Depois, seguimos viagem e conseguimos aproveitar bastante o passeio, que durou cerca de duas horas. No segundo passeio, fomos para Vila Velha, na Prainha. Visitamos um museu histórico que contava a história da colonização dos portugueses no Brasil e também conhecemos a Casa Museu Homero Massena. Por fim, subimos a pé até o Convento da Penha, onde apreciamos a vista e tiramos fotos. Após o passeio, retornamos à escola no ônibus . E essas duas aulas de campo foi muito informativa e interessante." },
+            { id: 12, pairName: "Kaio Julio", text: "Recentemente, realizei uma visita ao Centro Histórico de Vitória, um local muito famoso que fica no Espírito Santo. Durante a viagem, visitei o Museu de Vitória, onde assistimos a vídeos sobre a história da cidade e de como o museu foi criado há muitos anos, além de restaurado posteriormente. Tivemos também uma guia muito atenciosa, que nos explicou várias origens e estruturas importantes da história local. Percebi que foi uma experiência muito boa, pois aprendi bastante sobre a história e sobre como foi construída a sociedade ao longo dos anos, desde as antigas civilizações até os dias atuais. Achei interessante ver cada parte da história sendo reconhecida e valorizada, pois cada novo aprendizado amplia nosso conhecimento e nossa consciência histórica. O passeio foi encerrado com uma apresentação em vídeo, que trouxe um resumo detalhado da história do museu, seus prováveis criadores e o processo de restauração. Fiquei imaginando o grande trabalho que deve ter dado restaurar aquele espaço e admirei a dedicação das pessoas envolvidas. Senti felicidade ao ver que parte da nossa história foi preservada e valorizada através desse esforço coletivo." },
+            { id: 13, pairName: "Ana Victoria", text: "Nessa visita pedagógica, realizada em alguns pontos históricos e culturais do Espírito Santo, pude ampliar meus conhecimentos sobre a cultura e a memória capixaba. O Palácio Anchieta, localizado em Vitória, é um dos edifícios históricos mais antigos do Brasil, com origens jesuíticas. Descobri que o local já foi um colégio dos jesuítas e que guarda antiguidades da época da colonização do Brasil. Além disso, o prédio também serviu como quartel e presídio, e, a partir do século XIX, tornou-se a sede do Governo do Espírito Santo. Sua arquitetura mistura o estilo português com influências neoclássicas e, em seu interior, há exposições permanentes e temporárias que retratam a atuação dos jesuítas e a história do nosso estado. A Igreja do Rosário foi outro destino da visita. Ela foi construída por pessoas negras e demonstra resistência e cultura. Sua estrutura simples reflete o estilo colonial português do início da colonização. Visitamos também a Casa da Memória, que preserva fotos, documentos e objetos históricos. Foi interessante observar como a vida mudou ao longo dos anos e perceber a importância de manter vivas as lembranças do passado. Por fim, conhecemos o Museu Homero Massena, que reúne obras artísticas relacionadas à cultura e à natureza do nosso estado. As pinturas transmitem sentimentos e histórias sobre o cotidiano capixaba. Portanto, essa visita pedagógica foi uma ótima experiência — aprendi muito sobre a cultura, a arte e a história do Espírito Santo, além de compreender a importância de preservar nosso patrimônio." },
+        ];
+
+        const pairList = document.getElementById('pair-list');
+        const searchInput = document.getElementById('search-input');
+        const testimonialDisplay = document.getElementById('testimonial-display');
+        const pairNameDisplay = document.getElementById('pair-name-display');
+        const noResults = document.getElementById('no-results');
+        
+        let activeTestimonialId = null;
+
+        // Função para exibir o depoimento selecionado
+        const displayTestimonial = (testimonial) => {
+            if (!testimonial) return;
+
+            // Animação de fade-out
+            testimonialDisplay.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+            pairNameDisplay.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+
+            setTimeout(() => {
+                testimonialDisplay.innerHTML = `<p class="text-lg sm:text-xl font-light leading-relaxed text-white">${testimonial.text}</p>`;
+                pairNameDisplay.textContent = `- ${testimonial.pairName}`;
+                pairNameDisplay.classList.remove('hidden');
+                
+                // Animação de fade-in
+                testimonialDisplay.classList.remove('opacity-0');
+                pairNameDisplay.classList.remove('opacity-0');
+            }, 300); // Espera a transição acabar
+
+            activeTestimonialId = testimonial.id;
+            
+            // Atualiza a classe 'active' na lista
+            document.querySelectorAll('.pair-item').forEach(item => {
+                if (parseInt(item.dataset.id) === testimonial.id) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        };
+
+        // Função para renderizar a lista de duplas
+        const renderPairList = (data) => {
+            pairList.innerHTML = '';
+            if (data.length === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                data.forEach(testimonial => {
+                    const li = document.createElement('li');
+                    li.classList.add('pair-item', 'p-2', 'rounded-lg', 'text-sm', 'sm:text-base');
+                    li.textContent = testimonial.pairName;
+                    li.dataset.id = testimonial.id;
+                    li.addEventListener('click', () => displayTestimonial(testimonial));
+                    pairList.appendChild(li);
+
+                    // Reativa o item se for o ativo
+                    if (testimonial.id === activeTestimonialId) {
+                        li.classList.add('active');
+                    }
+                });
+            }
+        };
+
+        // Lógica de pesquisa
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredData = testimonialsData.filter(t => 
+                t.pairName.toLowerCase().includes(searchTerm)
+            );
+            renderPairList(filteredData);
+        });
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPairList(testimonialsData);
+            createIndicators();
+            updateButtonVisibility(); // Define o estado inicial dos botões
+        });
+
+        window.addEventListener('resize', () => {
+            // Atualiza o estado dos botões ao redimensionar
+            updateButtonVisibility();
+        });
+
+    </script>
+</body>
+</html>
